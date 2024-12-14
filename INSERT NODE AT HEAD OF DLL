@@ -1,0 +1,8 @@
+Node* insertAtFront(Node *head, int k) {
+    // Write your code here.
+    Node*newhead=new Node(k,nullptr,head);
+    if (head != nullptr) {
+      head->prev = newhead;
+      return newhead;
+    }
+}
