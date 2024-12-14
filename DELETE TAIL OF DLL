@@ -1,0 +1,79 @@
+#include <iostream>
+using namespace std;
+
+// Define the structure of a Node for Doubly Linked List
+struct Node {
+    int data;
+    Node* next;
+    Node* prev;
+
+    Node(int val) {
+        data = val;
+        next = nullptr;
+        prev = nullptr;
+    }
+};
+
+// Function to delete the tail node of the Doubly Linked List
+void deleteTail(Node*& head, Node*& tail) {
+    // If the list is empty
+    if (head == nullptr) {
+        cout << "List is empty. Nothing to delete." << endl;
+        return;
+    }
+
+    // If the list has only one node
+    if (head == tail) {
+        delete head;  // Delete the only node
+        head = tail = nullptr;  // Set both head and tail to null
+        return;
+    }
+
+    // Otherwise, the list has more than one node
+    // Set the second last node's next pointer to null
+    Node* temp = tail;
+    tail = tail->prev;  // Move the tail pointer to the second last node
+    tail->next = nullptr;  // Break the link from the last node
+
+    // Deallocate the memory for the deleted node (previous tail)
+    delete temp;
+}
+
+// Function to print the Doubly Linked List
+void printList(Node* head) {
+    Node* temp = head;
+    while (temp != nullptr) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    // Create a doubly linked list with nodes
+    Node* head = new Node(10);
+    Node* tail = head;
+
+    // Add more nodes to the DLL
+    Node* second = new Node(20);
+    Node* third = new Node(30);
+
+    head->next = second;
+    second->prev = head;
+    second->next = third;
+    third->prev = second;
+    tail = third;
+
+    // Print the original list
+    cout << "Original List: ";
+    printList(head);
+
+    // Delete the tail node
+    deleteTail(head, tail);
+
+    // Print the list after deleting the tail
+    cout << "List After Deleting Tail: ";
+    printList(head);
+
+    return 0;
+}
