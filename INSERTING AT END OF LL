@@ -1,0 +1,60 @@
+#include <iostream>
+using namespace std;
+
+// Define the structure of a Node
+struct Node {
+    int data;
+    Node* next;
+    
+    // Constructor to initialize the node with a value
+    Node(int val) {
+        data = val;
+        next = nullptr;
+    }
+};
+
+// Function to insert a node at the end of the Linked List
+void insertAtEnd(Node*& head, int newData) {
+    // Create a new node
+    Node* newNode = new Node(newData);
+    
+    // If the list is empty, the new node becomes the head
+    if (head == nullptr) {
+        head = newNode;
+        return;
+    }
+    
+    // Otherwise, traverse to the last node
+    Node* temp = head;
+    while (temp->next != nullptr) {
+        temp = temp->next;  // Move to the next node
+    }
+    
+    // Make the last node's next point to the new node
+    temp->next = newNode;
+}
+
+// Function to print the Linked List
+void printList(Node* head) {
+    Node* temp = head;
+    while (temp != nullptr) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    // Initial head is nullptr (empty list)
+    Node* head = nullptr;
+    
+    // Inserting nodes at the end
+    insertAtEnd(head, 10);
+    insertAtEnd(head, 20);
+    insertAtEnd(head, 30);
+    
+    // Print the list
+    printList(head); // Output: 10 20 30
+    
+    return 0;
+}
